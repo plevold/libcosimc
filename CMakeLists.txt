@@ -23,9 +23,6 @@ option(LIBCOSIMC_USING_CONAN "Whether Conan is used for package management" OFF)
 # Global internal configuration
 # ==============================================================================
 
-# Our custom CMake scripts go in the cmake/ subdirectory.
-list(INSERT CMAKE_MODULE_PATH 0 "${CMAKE_SOURCE_DIR}/cmake")
-
 # Use a common output directory for all targets.
 # The main purpose of this is to ensure that the DLLs and test executables
 # end up in the same directory on Windows, so that the OS finds the former
@@ -105,15 +102,6 @@ set(LIBCOSIMC_EXPORT_TARGET "${PROJECT_NAME}-targets")
 # ==============================================================================
 # Dependencies
 # ==============================================================================
-
-if(LIBCOSIMC_USING_CONAN)
-    if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-        include("${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
-        conan_basic_setup(NO_OUTPUT_DIRS)
-    else()
-        message(FATAL_ERROR "The file conanbuildinfo.cmake doesn't exist, you have to run conan install first")
-    endif()
-endif()
 
 find_package(libcosim REQUIRED)
 find_package(Boost REQUIRED COMPONENTS fiber)
